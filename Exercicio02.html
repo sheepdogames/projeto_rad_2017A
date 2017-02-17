@@ -1,0 +1,38 @@
+<html>
+	<head>
+		<title> Cadastro de Usuarios </title>
+	</head>
+	<script>
+		
+		/*function exibirSenha(){
+				//Acessando Input
+				var elSenha = document.getElementById("txtSenha");
+				if(elSenha.type=="text"){
+					elSenha.type="password";
+				}else{
+					elSenha.type="text";
+				}
+		}*/
+		
+		function trocarSenha(){
+			var trSenha = document.getElementById("C1").value;
+			C1.value = document.getElementById("C2").value;
+			C2.value = trSenha;
+		}
+		
+	</script>
+		<body>
+			<form>
+				<label id="lblUsername"> C1 </label>
+				<input type="text" value="" name="C1" id="C1">
+				
+				<label id="lblUsername">C2</label>
+				<input type="text" value="" name="C2" id="C2">
+				<input type="submit" value="Salvar"/>
+				
+				<input type="button" onclick="trocarSenha()" value="Trocar campos">
+			</form>
+		</body>
+		
+	</head>
+</html>

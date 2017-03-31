@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <form action="javascript:void(0)" onsubmit="app.salvar()">
+
+        <input type="text" id="add-nome" placeholder="Novo Pedido">
+        <input type="number" id="add-valor" placeholder="Valor">
+        <input type="submit" value="Salvar">
+    </form>
+       <p id="contador"> 	</p>
+    		<table>
+	        	<tr>
+					
+			    </tr>
+				<tbody id="pedidos">
+					
+				</tbody>
+			</table>
+        </body>
+<script>
+    var app = new function(){
+        console.log("instanciando valores agora");
+        this.elPedidos=document.getElementById("pedidos");
+        this.pedidos=[];
+        this.itemEditar=-1;
+
+        this.contar = function(qtd){
+            var elContador = document.getElementById('contador');
+            var nome="Pedido";
+            if(qtd){
+                if(qtd>1){
+                    nome="Pedidos";
+                }
+                elContador.innerHTML=qtd + '    '+nome;
+            }else{
+                elContador.innerHTML='Sem '+ nome;
+            }
+        };
+
+        this.listarTodos = function () {
+            var dados = '';
+
+            for(i=0;i<this.pedidos.length;i++){
+                dados+='<tr>';
+                dados+='<td>'+this.pedidos[i]+'</td>';
+                dados+='<td><button onclick="app.excluir('+i+')"> X </button></td>';
+                dados+= '<td><button onclick="app.editar('+i+')"> E </button></td>';
+                dados+="</tr>";
+            }
+            this.contar(this.pedidos.length);
+            this.elPedidos.innerHTML = dados;
+        };
+
+        this.excluir = function(itemExcluir){
+            this.pedidos.splice(itemExcluir, 1);
+            this.listarTodos();
+        }
+
+        this.salvar = function(){
+            var elNome = document.getElementById("add-nome");
+            var elValor = document.getElementById("add-valor");
+            
+            var item = elNome.value;
+            var valor = elValor.value;
+
+            if(item && valor){
+                if(this.itemEditar==-1){
+                    this.pedidos.push(item, valor);
+                }else{
+                    this.pedidos.splice(this.itemEditar,1,pedido.trim());
+                    this.itemEdiar=-1;
+                }
+                this.listarTodos();
+                this.novo();
+            }
+
+        };
+
+        this.novo=function(){
+            this.itemEditar=-1;
+            var elNome = document.getElementById("add-nome");
+            var elValor = document.getElementById("add-valor");
+            elNome.value="";
+            elValor.value="";
+        }
+
+        this.editar = function(item){
+            this.itemEdiar = item;
+            var nome = this.pedidos[item];
+            var valor = this.pedidos[item];
+
+            if(nome){
+                var elNome = document.getElementById("add-nome");
+                elNome.value=nome;
+            }
+            if(valor){
+                var elValor = document.getElementById("add-valor");
+                elValor.value=valor;
+            }
+        }
+    };
+    //app.listarTodos();
+    </script>
+</html>
